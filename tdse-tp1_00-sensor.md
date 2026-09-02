@@ -43,3 +43,18 @@ Para garantizar un filtrado correcto de ruidos e integrar el debouncing, el mode
 * `ST_BTN_FALLING`: Transición en curso hacia abajo; cuenta el tiempo de guarda `[tick >= DEL_BTN_DOWN]` para confirmar la pulsación evitando rebotes.
 * `ST_BTN_DOWN`: Botón presionado (estable).
 * `ST_BTN_RISING`: Transición en curso hacia arriba; cuenta el tiempo de guarda `[tick >= DEL_BTN_UP]` para confirmar la liberación y estabilización del contacto.
+
+**Sensor Statechart - State Transition Table**
+
+| Current State | Event | [Guard] | Next State | Actions |
+| --- | --- | --- | --- | --- |
+| **ST_BTN_UP** | `EV_BTN_DOWN` | — | **ST_BTN_FALLING** | `tick = 0`<br> |
+| **ST_BTN_UP** | `EV_BTN_UP` | — | **ST_BTN_UP** | — |
+| **ST_BTN_FALLING** | `EV_BTN_DOWN` | `[tick >= DEL_BTN_DOWN]` | **ST_BTN_DOWN** | `EV_SYS_BTN_PRESSED`<br> |
+| **ST_BTN_FALLING** | `EV_BTN_DOWN` | `[tick < DEL_BTN_DOWN]` | **ST_BTN_FALLING** | `tick++`<br> |
+| **ST_BTN_FALLING** | `EV_BTN_UP` | — | **ST_BTN_UP** | — |
+| **ST_BTN_DOWN** | `EV_BTN_UP` | — | **ST_BTN_RISING** | `tick = 0`<br> |
+| **ST_BTN_DOWN** | `EV_BTN_DOWN` | — | **ST_BTN_DOWN** | — |
+| **ST_BTN_RISING** | `EV_BTN_UP` | `[tick >= DEL_BTN_UP]` | **ST_BTN_UP** | `EV_SYS_BTN_RELEASED`<br> |
+| **ST_BTN_RISING** | `EV_BTN_UP` | `[tick < DEL_BTN_UP]` | **ST_BTN_RISING** | `tick++`<br> |
+| **ST_BTN_RISING** | `EV_BTN_DOWN` | — | **ST_BTN_DOWN** | — |
