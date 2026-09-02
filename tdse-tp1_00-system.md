@@ -30,12 +30,8 @@ Son las señales/mensajes que el modelo recibe desde los módulos de escrutinio 
 
 | Evento | Identificador | Descripción |
 | --- | --- | --- |
-| **Botón presionado** | `EV_SYS_BTN_PRESSED` | Señal recibida desde el módulo Sensor que indica que el botón de solicitud de ticket fue presionado.
-
- |
-| **Botón liberado** | `EV_SYS_BTN_RELEASED` | Señal recibida desde el módulo Sensor que indica que el botón de solicitud de ticket fue liberado.
-
- |
+| **Botón presionado** | `EV_SYS_BTN_PRESSED` | Señal recibida desde el módulo Sensor que indica que el botón de solicitud de ticket fue presionado|
+| **Botón liberado** | `EV_SYS_BTN_RELEASED` | Señal recibida desde el módulo Sensor que indica que el botón de solicitud de ticket fue liberado|
 
 ---
 
@@ -44,18 +40,10 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 
 | Tipo de Acción | Identificador / Función | Descripción |
 | --- | --- | --- |
-| **Inicialización de Temporizador** | `timer = 0` | Resetea/inicializa la variable de control de tiempo al cambiar de estado.
-
- |
-| **Señal hacia Actuador (Impresión)** | `EV_ACT_PRINT_TICKET` | Envía una señal al modelo Actuator para imprimir el ticket.
-
- |
-| **Señal hacia Actuador (Barrera)** | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuator para abrir la barrera de entrada.
-
- |
-| **Señal hacia Actuador (Display)** | `EV_ACT_UPDATE_DISPLAY` | Envía una señal al modelo Actuator para actualizar la pantalla o los LEDs de indicación.
-
- |
+| **Inicialización de Temporizador** | `timer = 0` | Resetea/inicializa la variable de control de tiempo al cambiar de estado|
+| **Señal hacia Actuador (Impresión)** | `EV_ACT_PRINT_TICKET` | Envía una señal al modelo Actuator para imprimir el ticket|
+| **Señal hacia Actuador (Barrera)** | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuator para abrir la barrera de entrada|
+| **Señal hacia Actuador (Display)** | `EV_ACT_UPDATE_DISPLAY` | Envía una señal al modelo Actuator para actualizar la pantalla o los LEDs de indicación|
 
 ---
 
