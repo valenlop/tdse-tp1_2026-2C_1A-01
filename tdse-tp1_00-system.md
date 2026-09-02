@@ -45,3 +45,14 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 | **Señal hacia Actuador (Barrera)** | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuator para abrir la barrera de entrada|
 | **Señal hacia Actuador (Display)** | `EV_ACT_UPDATE_DISPLAY` | Envía una señal al modelo Actuator para actualizar la pantalla o los LEDs de indicación|
 
+
+**System Statechart - State Transition Table**
+
+| Current State | Event | [Guard] | Next State | Actions |
+| --- | --- | --- | --- | --- |
+| **ST_SYS_IDLE** | `EV_SYS_BTN_PRESSED` | — | **ST_SYS_PROCESSING** | `timer = 0`, `EV_ACT_PRINT_TICKET`<br> |
+| **ST_SYS_IDLE** | `EV_SYS_BTN_RELEASED` | — | **ST_SYS_IDLE** | — |
+| **ST_SYS_PROCESSING** | — | `[timer < DEL_SYS_PRINT]` | **ST_SYS_PROCESSING** | `timer++`<br> |
+| **ST_SYS_PROCESSING** | — | `[timer >= DEL_SYS_PRINT]` | **ST_SYS_BARRIER_OPEN** | `timer = 0`, `EV_ACT_OPEN_BARRIER`<br> |
+| **ST_SYS_BARRIER_OPEN** | — | `[timer < DEL_SYS_TIMEOUT]` | **ST_SYS_BARRIER_OPEN** | `timer++`<br> |
+| **ST_SYS_BARRIER_OPEN** | — | `[timer >= DEL_SYS_TIMEOUT]` | **ST_SYS_IDLE** | `EV_ACT_UPDATE_DISPLAY`<br> |
