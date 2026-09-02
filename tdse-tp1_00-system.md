@@ -45,6 +45,3 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 | **Señal hacia Actuador (Barrera)** | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuator para abrir la barrera de entrada|
 | **Señal hacia Actuador (Display)** | `EV_ACT_UPDATE_DISPLAY` | Envía una señal al modelo Actuator para actualizar la pantalla o los LEDs de indicación|
 
----
-
-¿Necesitas que redactemos también la tabla de transición de estados (*State Transition Table*) para este archivo o avanzamos con el siguiente paso?
