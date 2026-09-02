@@ -46,3 +46,22 @@ Para cubrir los distintos comportamientos del LED se consideran los siguientes e
 * `ST_LED_ON`: Salida digital en nivel alto (encendido).
 * `ST_LED_BLINK_ON`: Subestado de titilado activo en nivel alto.
 * `ST_LED_BLINK_OFF`: Subestado de titilado activo en nivel bajo.
+
+**Actuator Statechart - State Transition Table**
+
+| Current State | Event | [Guard] | Next State | Actions |
+| --- | --- | --- | --- | --- |
+| **ST_LED_OFF** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()`<br> |
+| **ST_LED_OFF** | `EV_ACT_LED_BLINK` | — | **ST_LED_BLINK_ON** | `tick = 0`, `led_turn_on()`<br> |
+| **ST_LED_OFF** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()`<br> |
+| **ST_LED_ON** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()`<br> |
+| **ST_LED_ON** | `EV_ACT_LED_BLINK` | — | **ST_LED_BLINK_ON** | `tick = 0`, `led_turn_on()`<br> |
+| **ST_LED_ON** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()`<br> |
+| **ST_LED_BLINK_ON** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()`<br> |
+| **ST_LED_BLINK_ON** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()`<br> |
+| **ST_LED_BLINK_ON** | — | `[tick < DEL_LED_BLINK]` | **ST_LED_BLINK_ON** | `tick++`<br> |
+| **ST_LED_BLINK_ON** | — | `[tick >= DEL_LED_BLINK]` | **ST_LED_BLINK_OFF** | `tick = 0`, `led_turn_off()`<br> |
+| **ST_LED_BLINK_OFF** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()`<br> |
+| **ST_LED_BLINK_OFF** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()`<br> |
+| **ST_LED_BLINK_OFF** | — | `[tick < DEL_LED_BLINK]` | **ST_LED_BLINK_OFF** | `tick++`<br> |
+| **ST_LED_BLINK_OFF** | — | `[tick >= DEL_LED_BLINK]` | **ST_LED_BLINK_ON** | `tick = 0`, `led_turn_on()`<br> |
