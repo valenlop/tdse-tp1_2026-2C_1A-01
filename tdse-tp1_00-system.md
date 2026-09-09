@@ -50,9 +50,11 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 
 | Current State | Event | [Guard] | Next State | Actions |
 | --- | --- | --- | --- | --- |
-| **ST_SYS_IDLE** | `EV_SYS_BTN_PRESSED` | — | **ST_SYS_PROCESSING** | `timer = 0`, `EV_ACT_PRINT_TICKET`<br> |
-| **ST_SYS_IDLE** | `EV_SYS_BTN_RELEASED` | — | **ST_SYS_IDLE** | — |
-| **ST_SYS_PROCESSING** | — | `[timer < DEL_SYS_PRINT]` | **ST_SYS_PROCESSING** | `timer++`<br> |
-| **ST_SYS_PROCESSING** | — | `[timer >= DEL_SYS_PRINT]` | **ST_SYS_BARRIER_OPEN** | `timer = 0`, `EV_ACT_OPEN_BARRIER`<br>,  `EV_ACT_UPDATE_DISPLAY`<br> |
-| **ST_SYS_BARRIER_OPEN** | — | `[timer < DEL_SYS_TIMEOUT]` | **ST_SYS_BARRIER_OPEN** | `timer++`<br> |
-| **ST_SYS_BARRIER_OPEN** | — | `[timer >= DEL_SYS_TIMEOUT]` | **ST_SYS_IDLE** |  `EV_ACT_CLOSE_BARRIER`<br>, `EV_ACT_UPDATE_DISPLAY`<br> |
+| `ST_SYS_BARRIER_CLOSE` | `EV_SYS_BTN_RELEASED` | — | `ST_SYS_BARRIER_CLOSE` | — |
+| `ST_SYS_BARRIER_CLOSE` | `EV_SYS_CAR_ARR` | — | `ST_SYS_CAR_ARR` | — |
+| `ST_SYS_CAR_ARR` | `EV_SYS_BTN_PRESSED` | — | `ST_SYS_BARRIER_OPEN` | `timer = 0`,<br>
+
+<br>`EV_ACT_OPEN_BARRIER` |
+| `ST_SYS_BARRIER_OPEN` | — | `[timer < DEL_SYS_TIMEOUT]` | `ST_SYS_BARRIER_OPEN` | `timer = timer + 1` |
+| `ST_SYS_BARRIER_OPEN` | — | `[timer >= DEL_SYS_TIMEOUT]` | `ST_SYS_WAIT_CAR_LEAVE` | — |
+| `ST_SYS_WAIT_CAR_LEAVE` | `EV_SYS_CAR_LEAVE` | — | `ST_SYS_BARRIER_CLOSE` | `EV_ACT_CLOSE_BARRIER` |
