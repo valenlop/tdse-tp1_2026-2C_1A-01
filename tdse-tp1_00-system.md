@@ -53,6 +53,6 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 | **ST_SYS_IDLE** | `EV_SYS_BTN_PRESSED` | — | **ST_SYS_PROCESSING** | `timer = 0`, `EV_ACT_PRINT_TICKET`<br> |
 | **ST_SYS_IDLE** | `EV_SYS_BTN_RELEASED` | — | **ST_SYS_IDLE** | — |
 | **ST_SYS_PROCESSING** | — | `[timer < DEL_SYS_PRINT]` | **ST_SYS_PROCESSING** | `timer++`<br> |
-| **ST_SYS_PROCESSING** | — | `[timer >= DEL_SYS_PRINT]` | **ST_SYS_BARRIER_OPEN** | `timer = 0`, `EV_ACT_OPEN_BARRIER`<br> |
+| **ST_SYS_PROCESSING** | — | `[timer >= DEL_SYS_PRINT]` | **ST_SYS_BARRIER_OPEN** | `timer = 0`, `EV_ACT_OPEN_BARRIER`<br>,  `EV_ACT_UPDATE_DISPLAY`<br> |
 | **ST_SYS_BARRIER_OPEN** | — | `[timer < DEL_SYS_TIMEOUT]` | **ST_SYS_BARRIER_OPEN** | `timer++`<br> |
-| **ST_SYS_BARRIER_OPEN** | — | `[timer >= DEL_SYS_TIMEOUT]` | **ST_SYS_IDLE** | `EV_ACT_UPDATE_DISPLAY`<br> |
+| **ST_SYS_BARRIER_OPEN** | — | `[timer >= DEL_SYS_TIMEOUT]` | **ST_SYS_IDLE** |  `EV_ACT_CLOSE_BARRIER`<br>, `EV_ACT_UPDATE_DISPLAY`<br> |
