@@ -40,11 +40,10 @@ Las acciones del modelo **System** ejecutan funciones, modifican/inicializan var
 
 | Tipo de Acción | Identificador / Función | Descripción |
 | --- | --- | --- |
-| **Inicialización de Temporizador** | `timer = 0` | Resetea/inicializa la variable de control de tiempo al cambiar de estado|
-| **Señal hacia Actuador (Impresión)** | `EV_ACT_PRINT_TICKET` | Envía una señal al modelo Actuator para imprimir el ticket|
-| **Señal hacia Actuador (Barrera)** | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuator para abrir la barrera de entrada|
-| **Señal hacia Actuador (Display)** | `EV_ACT_UPDATE_DISPLAY` | Envía una señal al modelo Actuator para actualizar la pantalla o los LEDs de indicación|
-
+| Inicialización de Temporizador | `timer = 0` | Resetea/inicializa la variable de control de tiempo al presionar el botón para abrir la barrera |
+| Incremento de Temporizador | `timer = timer + 1` | Incrementa la variable de control de tiempo mientras se espera a que se cumpla el timeout de la barrera abierta |
+| Señal hacia Actuador (Abrir Barrera) | `EV_ACT_OPEN_BARRIER` | Envía una señal al modelo Actuador para abrir la barrera de entrada |
+| Señal hacia Actuador (Cerrar Barrera) | `EV_ACT_CLOSE_BARRIER` | Envía una señal al modelo Actuador para cerrar la barrera una vez que el auto se retira |
 
 **System Statechart - State Transition Table**
 
