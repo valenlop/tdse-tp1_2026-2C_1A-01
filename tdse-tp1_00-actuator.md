@@ -1,28 +1,29 @@
 # Modelo Actuator (Un solo LED) - Eventos y Acciones
 
 **1. Descripción del Modelo**
-El modelo **Actuator** describe el comportamiento del módulo encargado de la tarea de **actuar** (*act*). Su función principal es recibir las señales enviadas por el módulo **System** para controlar la salida digital física (un LED), alternando directamente entre los estados de encendido y apagado.
+El modelo **Actuator** describe el comportamiento del módulo encargado de la tarea de **actuar** (*act*). Su función principal es recibir las señales enviadas por el módulo **System** para controlar la salida digital física (un LED). Incorpora un estado intermedio (**ST_LED_BLINK**) que representa la transición temporal (por ejemplo, el movimiento de una barrera) antes de pasar al estado final de encendido o apagado.
 
 ---
 
-**2. Convención de Identificadores**
+**2. Convención de Identificadores y Variables**
 
 * **Eventos recibidos (Triggers):** `EV_ACT_...` (provenientes del modelo System).
 * **Estados del modelo:** `ST_LED_...`
+* **Variables internas:** `target_on` (Booleano utilizado para recordar el estado objetivo al finalizar el temporizador).
 
 ---
 
 **3. Eventos del Modelo Actuator**
-Son las señales/mensajes recibidos desde el modelo **System** que modifican el estado de activación del LED:
+Son las señales/mensajes recibidos desde el modelo **System** que inician la secuencia de cambio de estado del LED:
 
 | Evento | Identificador | Descripción |
 | --- | --- | --- |
-| **Encender LED** | `EV_ACT_LED_ON` | Ordena la activación constante (encendido) del LED. |
-| **Apagar LED** | `EV_ACT_LED_OFF` | Ordena la desactivación (apagado) del LED. |
+| **Encender LED** | `EV_ACT_LED_ON` | Solicita la secuencia de encendido del LED (pasa a parpadeo antes de encender). |
+| **Apagar LED** | `EV_ACT_LED_OFF` | Solicita la secuencia de apagado del LED (pasa a parpadeo antes de apagar). |
 
 ---
 
-**4. Acciones del Modelo Actuator**
+**4. Acciones y Operaciones Hardware**
 Las acciones ejecutan funciones directas sobre la salida digital:
 
 | Tipo de Acción | Identificador / Función | Descripción |
@@ -32,17 +33,23 @@ Las acciones ejecutan funciones directas sobre la salida digital:
 
 ---
 
-**5. Estados del Modelo Actuator**
-Para cubrir el comportamiento del diagrama simplificado se consideran únicamente dos estados:
+**5. Variables Internas**
 
-* `ST_LED_OFF`: Salida digital en nivel bajo (apagado). Estado inicial del sistema.
-* `ST_LED_ON`: Salida digital en nivel alto (encendido).
+| Variable | Tipo | Descripción |
+| --- | --- | --- |
+| `target_on` | `boolean` | `true` si el estado destino final es `ST_LED_ON`; `false` si el destino final es `ST_LED_OFF`. |
 
-**Actuator Statechart - State Transition Table**
+---
 
-| Current State | Event | [Guard] | Next State | Actions |
-| --- | --- | --- | --- | --- |
-| **ST_LED_OFF** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()` |
-| **ST_LED_OFF** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()` |
-| **ST_LED_ON** | `EV_ACT_LED_ON` | — | **ST_LED_ON** | `led_turn_on()` |
-| **ST_LED_ON** | `EV_ACT_LED_OFF` | — | **ST_LED_OFF** | `led_turn_off()` |
+**6. Definiciones del Statechart (Itemis CREATE)**
+
+```sct
+@EventDriven
+interface:
+    in event EV_ACT_LED_ON
+    in event EV_ACT_LED_OFF
+    
+    var target_on : boolean
+    
+    operation led_turn_on()
+    operation led_turn_off()
