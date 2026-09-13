@@ -1,11 +1,11 @@
 # Modelo Actuator (Un solo LED) - Eventos y Acciones
 
-**Descripción del Modelo**
+## 1. Descripción del Modelo ##
 El modelo **Actuator** describe el comportamiento del módulo encargado de la tarea de **actuar** (*act*). Su función principal es recibir las señales enviadas por el módulo **System** para controlar la salida digital física (un LED). Incorpora un estado intermedio de parpadeo (**ST_LED_BLINK**) que representa un estado de transición temporal antes de pasar al estado final de encendido o apagado.
 
 ---
 
-**Convención de Identificadores**
+## 2. Convención de Identificadores ##
 
 * **Eventos recibidos (Triggers):** `EV_ACT_...` (provenientes del modelo System).
 * **Estados del modelo:** `ST_LED_...`
