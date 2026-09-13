@@ -33,7 +33,7 @@ Las acciones ejecutan funciones directas sobre la salida digital:
 
 ---
 
-**Sensor Statechart - State Transition Table**
+**Actuator Statechart - State Transition Table**
 
 | Current State | Event / Trigger | [Guard] | Next State | Actions |
 | --- | --- | --- | --- | --- |
