@@ -13,7 +13,7 @@ El modelo **Actuator** describe el comportamiento del módulo encargado de la ta
 
 ---
 
-**Eventos del Modelo Actuador**
+## 3. Eventos del Modelo Actuador ##
 Son las señales/mensajes recibidos desde el modelo **System** que inician la secuencia de cambio de estado del LED:
 
 | Evento | Identificador | Descripción |
@@ -23,7 +23,7 @@ Son las señales/mensajes recibidos desde el modelo **System** que inician la se
 
 ---
 
-**Acciones del Modelo Actuador**
+## 4. Acciones del Modelo Actuador ##
 Las acciones ejecutan funciones directas sobre la salida digital:
 
 | Tipo de Acción | Identificador / Función | Descripción |
@@ -33,7 +33,7 @@ Las acciones ejecutan funciones directas sobre la salida digital:
 
 ---
 
-**Actuator Statechart - State Transition Table**
+## 5. Actuator Statechart - State Transition Table ##
 
 | Current State | Event / Trigger | [Guard] | Next State | Actions |
 | --- | --- | --- | --- | --- |
